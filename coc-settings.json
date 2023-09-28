@@ -1,26 +1,17 @@
 {
-	"coc.preferences.semanticTokensHighlights": false,
-	"coc.preferences.bracketEnterImprove":  true ,
-	"coc.perferences.semanticTokensHighlights": true,
-	"coc.preferences.enableFloatHighlight": true,
-	"coc.preferences.snippetStatusText": "Ⓢ ",
-	"coc.preferences.extensionUpdateCheck": "daily",
-	"coc.preferences.messageLevel": "error",
-	"coc.source.around.firstMatch": false,
-	"coc.source.buffer.firstMatch": false,
-	"coc.source.syntax.firstMatch": false,
-	"suggest.detailMaxLength": 60,
+	"suggest.labelMaxLength": 60,
+	"suggest.virtualText": true,
+	"suggest.filterGraceful": true,
 	"suggest.noselect": true,
 	"suggest.enablePreselect": false,
 	"suggest.triggerAfterInsertEnter": true,
 	"suggest.autoTrigger": "always",
 	"suggest.timeout": 5000,
-	"suggest.enablePreview": true,
-	"suggest.floatEnable": true,
+	"suggest.enableFloat": true,
 	"suggest.detailField": "preview",
 	"suggest.snippetIndicator": "",
-	"suggest.triggerCompletionWait": 100,
-	"suggest.echodocSupport": true,
+	"suggest.triggerCompletionWait": 50,
+	"suggest.removeDuplicateItems": true,
 	"suggest.completionItemKindLabels": {
 		"class": "\uf0e8",
 		"color": "\ue22b",
@@ -48,7 +39,7 @@
 		"value": "\uf89f",
 		"variable": "\ue71b"
 	},
-	"diagnostic.signOffset": 1,
+	// ================================
 	"diagnostic.errorSign": "\uf467",
 	"diagnostic.warningSign": "\uf071",
 	"diagnostic.infoSign": "\uf129",
@@ -58,40 +49,40 @@
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": false,
-	"codeLens.enable": true,
+	// ================================
+	"codeLens.enable": false, // showr var/func ref num: too mess
+	// ================================
 	"list.previewHighlightGroup": "Statement",
-	"list.nextKeymap": "<C-e>",
-	"list.previousKeymap": "<C-u>",
+	"list.nextKeymap": "<C-j>",
+	"list.previousKeymap": "<C-k>",
+	// ================================
 	"importCost.bundleSizeDecoration": "both",
 	"importCost.typescriptExtensions": ["\\.tsx?$"],
 	"importCost.javascriptExtensions": ["\\.jsx?$"],
 	"importCost.showCalculatingDecoration": true,
 	"importCost.debug": false,
+	// ================================
 	"snippets.ultisnips.directories": [
 		"$HOME/.config/nvim/Ultisnips/",
 		"$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
 	],
-	"coc.preferences.formatOnSaveFiletypes": [
-		"javascript",
-		"typescript",
-		"typescriptreact",
-		"html",
-		"css",
-		"json",
-		"jsonc",
-		"java",
-		"python",
-		"vue",
-		"c",
-		"cpp",
-		"cs"
-	],
+	"snippets.ultisnips.pythonPrompt": false,
+	"snippets.extends": {
+		"cpp": ["c"]
+	},
+	// ================================
+	"coc.preferences.formatOnSave": true,
+	// ================================
 	"yaml.format.enable": true,
+	// ================================
 	"signature.target": "float",
+	// ================================
 	"yank.enableCompletion": false,
+	// ================================
 	"typescript.suggestionActions.enabled": true,
-	// "typescript.format.enabled": true,
+	// ================================
 	"jest.watch": false,
+	// ================================
 	"explorer.width": 38,
 	"explorer.quitOnOpen": true,
 	"explorer.sources": [
@@ -113,10 +104,10 @@
 	"explorer.keyMappings.global": {
 		"k": "nodePrev",
 		"j": "nodeNext",
-		" ": "toggleSelection",
+		"l": "toggleSelection",
 		"<tab>": "actionMenu",
-		"gl": "expandRecursive",
-		"gh": "collapseRecursive",
+		"L": "expandRecursive",
+		"N": "collapseRecursive",
 		"i": ["wait", "expandable?", "expand", "open"],
 		"<cr>": ["wait", "expandable?", "cd", "open"],
 		"I": "open:vsplit",
@@ -153,7 +144,9 @@
 		"<<": "gitStage",
 		">>": "gitUnstage"
 	},
+	// ================================
 	"tslint.autoFixOnSave": false,
+	// ================================
 	"python.autoComplete.addBrackets": true,
 	"python.jediEnabled": false,
 	"python.formatting.provider": "yapf",
@@ -161,23 +154,23 @@
 		"--style",
 		"{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
 	],
+	// ================================
 	"html.format.enable": true,
-	// "javascript.referencesCodeLens.enable": true,
+	// ================================
 	"javascript.showUnused": true,
 	"javascript.suggest.names": true,
 	"javascript.suggestionActions.enabled": true,
 	"json.format.enable": true,
+	// ================================
 	"eslint.autoFixOnSave": false,
+	// ================================
 	"prettier.printWidth": 100,
 	"prettier.disableLanguages": [],
 	"prettier.formatterPriority": 1,
 	"prettier.useTabs": true,
 	"prettier.trailingComma": "all",
 	"prettier.singleQuote": false,
-	"todolist.autoUpload": true,
-	"todolist.promptForReminder": false,
-	"coc-actions.hideCursor": false,
-	"coc-actions.showActionKind": true,
+	// ================================
 	"diagnostic-languageserver.filetypes": {
 		"vim": "vint",
 		"email": "languagetool",
@@ -185,7 +178,8 @@
 		"sh": "shellcheck",
 		"elixir": ["mix_credo", "mix_credo_compile"],
 		"eelixir": ["mix_credo", "mix_credo_compile"],
-		"php": ["phpstan", "psalm"]
+		"php": ["phpstan", "psalm"],
+		"cpp": ["ccls"]
 	},
 	"diagnostic-languageserver.formatFiletypes": {
 		"elixir": "mix_format",
@@ -237,11 +231,12 @@
 			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
 			"rootPatterns": [".ccls", ".ccls-root", "compile_commands.json", ".git/", ".hg/"],
 			"initializationOptions": {
+				"diagnosticsEnabled": true,
 				"cache": {
 					"directory": "/tmp/ccls"
-				}
+				},
+				"referencesCodeLens": false
 			}
 		}
-	},
-	"snippets.ultisnips.pythonPrompt": false
+	}
 }

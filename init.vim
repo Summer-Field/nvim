@@ -134,7 +134,8 @@ inoremap <C-a> <ESC>A
 
 
 " ==================== Command Mode Cursor Movement ====================
-cnoremap <C-a> <Home> cnoremap <C-e> <End>
+cnoremap <C-a> <Home> 
+cnoremap <C-e> <End>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 cnoremap <C-h> <Left>
@@ -158,10 +159,10 @@ noremap sx :set splitbelow<CR>:split<CR>
 noremap sa :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap sd :set splitright<CR>:vsplit<CR>
 " Resize splits with arrow keys
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+noremap <down> :res +5<CR>
+noremap <up> :res -5<CR>
+noremap <right> :vertical resize-5<CR>
+noremap <left> :vertical resize+5<CR>
 " Place the two screens up and down
 noremap sh <C-w>t<C-w>K
 " Place the two screens side by side
@@ -287,7 +288,6 @@ Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} "Highlight the syntax of many language
 
 " Pretty Dress
-"Plug 'arzg/vim-colors-xcode'
 Plug 'dracula/vim', { 'as': 'dracula' } 
 
 " Status line
@@ -382,7 +382,7 @@ Plug 'petertriho/nvim-scrollbar'
 Plug 'kevinhwang91/nvim-hlslens' " quick search
 Plug 'ggandor/lightspeed.nvim' " quick search with 'f'/'F'/'t'/'T'
 "Plug 'Raimondi/delimitMate'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'mg979/vim-visual-multi' " multiple cursors
 Plug 'tomtom/tcomment_vim' " in <space>cn to comment a line
 Plug 'theniceboy/antovim' " gs to switch
@@ -480,10 +480,16 @@ let g:airline#extensions#tabline#enabled = 1
 
 " ==================== coc.nvim ====================
 let g:coc_global_extensions = [
+	\ 'coc-highlight',
+	\ 'coc-vimlsp',
 	\ 'coc-css',
+	\ 'coc-cmake',
+	\ 'coc-emmet',
+	\ 'coc-pairs',
 	\ 'coc-diagnostic',
 	\ 'coc-docker',
 	\ 'coc-eslint',
+	\ 'coc-markdownlint',
 	\ 'coc-explorer',
 	\ 'coc-gitignore',
 	\ 'coc-html',
@@ -505,6 +511,7 @@ let g:coc_global_extensions = [
 	\ 'coc-vetur',
 	\ 'coc-vimlsp',
 	\ 'coc-yaml',
+	\ 'coc-git',
 	\ 'coc-yank']
 " Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
@@ -512,6 +519,7 @@ inoremap <silent><expr> <TAB>
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
@@ -529,7 +537,6 @@ inoremap <silent><expr> <c-o> coc#refresh()
 
 " Use <LEADER>H to show documentation in a seperate window below
 function! Show_documentation()
-	call CocActionAsync('highlight')
 	if (index(['vim','help'], &filetype) >= 0)
 		execute 'h '.expand('<cword>')
 	else
@@ -546,7 +553,7 @@ function! ShowDocumentation()
     call feedkeys('H', 'in')
   endif
 endfunction
-nnoremap <silent> H :call ShowDocumentation()<CR>
+nnoremap <silent>H :call ShowDocumentation()<CR>
 
 " set runtimepath^=~/.config/nvim/coc-extensions/coc-flutter-tools/
 " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
@@ -601,13 +608,14 @@ nmap <leader>aw  <Plug>(coc-codeaction-selected)w
 " coc-tasks
 noremap <silent> <leader>ts :CocList tasks<CR>
 
-" " coc-snippets
-" imap <C-l> <Plug>(coc-snippets-expand)
-" vmap <C-e> <Plug>(coc-snippets-select)
-" let g:coc_snippet_next = '<c-e>'
-" let g:coc_snippet_prev = '<c-n>'
-" imap <C-e> <Plug>(coc-snippets-expand-jump)
-" autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+ " coc-snippets
+imap <C-x> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+xmap <leader>x  <Plug>(coc-convert-snippet)
+autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 
 " ==================== vim-instant-markdown ====================
@@ -696,8 +704,8 @@ let g:VM_maps["Redo"]               = '<C-r>'
 
 
 " ==================== nvim-spectre ====================
-nnoremap <LEADER>f <cmd>lua require('spectre').open()<CR>
-vnoremap <LEADER>f <cmd>lua require('spectre').open_visual()<CR>
+nnoremap <LEADER>F <cmd>lua require('spectre').open()<CR>
+vnoremap <LEADER>F <cmd>lua require('spectre').open_visual()<CR>
 
 
 " ==================== Bullets.vim ====================
@@ -919,7 +927,7 @@ let g:dartfmt_options = ["-l 100"]
 " ==================== tcomment_vim ====================
 nnoremap ci cl
 let g:tcomment_textobject_inlinecomment = ''
-" nmap <LEADER>cn g>c
+" nmap <LEADER>cn g
 vmap <LEADER>cn g>
 nmap <LEADER>cu g<c
 vmap <LEADER>cu g<
