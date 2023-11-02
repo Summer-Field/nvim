@@ -13,7 +13,7 @@ return {
     local defaults = require("cmp.config.default")()
     return {
       completion = {
-        completeopt = "menu,menuone,noinsert",
+        completeopt = "menu,menuone,noinsert,noselect,preview",
       },
       snippet = {
         expand = function(args)
@@ -38,13 +38,14 @@ return {
               fallback()
             end
           end,
+          s = cmp.mapping.confirm({ select = true }),
+          c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
             cmp.select_next_item()
           -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-          -- this way you will only jump inside the snippet region
+          -- that way you will only jump inside the snippet region
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           elseif has_words_before() then
@@ -62,10 +63,6 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
