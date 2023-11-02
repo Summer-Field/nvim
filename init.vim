@@ -299,12 +299,7 @@ Plug 'pechorin/any-jump.vim'
 
 " Auto Complete
 Plug 'wellle/tmux-complete.vim'
-Plug 'Neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Snippets
 " Plug 'SirVer/ultisnips'
@@ -365,7 +360,7 @@ Plug 'vim-scripts/argtextobj.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'AndrewRadev/splitjoin.vim' "gS/gJ to split/join lines
 Plug 'matze/vim-move'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " For general writing
 Plug 'junegunn/goyo.vim'
@@ -431,40 +426,34 @@ hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
 "
 
-
 " ==================== coc.nvim ====================
 let g:coc_global_extensions = [
 	\ 'coc-highlight',
-	\ 'coc-vimlsp',
-	\ 'coc-sh',
-	\ 'coc-css',
+	\ 'coc-lua',
+	\ 'coc-stylua',
+	\ 'coc-sumneko-lua',
+	\ 'coc-clang-format-style-options',
 	\ 'coc-cmake',
-	\ 'coc-emmet',
+	\ 'coc-sh',
 	\ 'coc-pairs',
 	\ 'coc-diagnostic',
 	\ 'coc-docker',
 	\ 'coc-eslint',
 	\ 'coc-markdownlint',
-	\ 'coc-explorer',
 	\ 'coc-gitignore',
 	\ 'coc-html',
 	\ 'coc-import-cost',
 	\ 'coc-java',
 	\ 'coc-rust-analyzer',
-	\ 'coc-jest',
 	\ 'coc-json',
 	\ 'coc-lists',
 	\ 'coc-prettier',
-	\ 'coc-prisma',
 	\ 'coc-pyright',
 	\ 'coc-snippets',
-	\ 'coc-sourcekit',
 	\ 'coc-stylelint',
 	\ 'coc-syntax',
 	\ 'coc-tasks',
 	\ 'coc-translator',
-	\ 'coc-tsserver',
-	\ 'coc-vetur',
 	\ 'coc-vimlsp',
 	\ 'coc-yaml',
 	\ 'coc-git',
@@ -492,24 +481,24 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <c-o> coc#refresh()
 
 " Use <LEADER>H to show documentation in a seperate window below
-" function! Show_documentation()
-" 	if (index(['vim','help'], &filetype) >= 0)
-" 		execute 'h '.expand('<cword>')
-" 	else
-" 		call CocAction('doHover')
-" 	endif
-" endfunction
-" nnoremap <LEADER>H :call Show_documentation()<CR>
-"
-" " Use H to show documentation in preview window
-" function! ShowDocumentation()
-"   if CocAction('hasProvider', 'hover')
-"     call CocActionAsync('doHover')
-"   else
-"     call feedkeys('H', 'in')
-"   endif
-" endfunction
-" nnoremap <silent>H :call ShowDocumentation()<CR>
+function! Show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
+nnoremap <LEADER>H :call Show_documentation()<CR>
+
+" Use H to show documentation in preview window
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('H', 'in')
+  endif
+endfunction
+nnoremap <silent>H :call ShowDocumentation()<CR>
 
 " set runtimepath^=~/.config/nvim/coc-extensions/coc-flutter-tools/
 " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
@@ -545,7 +534,6 @@ nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader> rn <Plug>(coc-rename)
-nmap tt :CocCommand explorer<CR>
 
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
@@ -1161,7 +1149,7 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+	tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = {}
@@ -1169,6 +1157,36 @@ require('lualine').setup {
 EOF
 endif
 
+
+"" ==================== lukas-reineke/indent-blankline.nvim ====================
+lua<<EOF
+local highlight = {
+		"RainbowRed",
+		"RainbowYellow",
+		"RainbowBlue",
+		"RainbowOrange",
+		"RainbowGreen",
+		"RainbowViolet",
+		"RainbowCyan",
+}
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+vim.g.rainbow_delimiters = { highlight = highlight }
+require("ibl").setup { scope = { highlight = highlight } }
+
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+EOF
 
 "" ==================== Terminal Colors ====================
 let g:terminal_color_0  = '#000000'
