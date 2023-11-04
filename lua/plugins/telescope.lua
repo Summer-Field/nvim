@@ -2,20 +2,6 @@ local Util = require("util")
 
 return {
   "nvim-telescope/telescope.nvim",
-  cmd = "Telescope",
-  version = false, -- telescope did only one release, so use HEAD for now
-  dependencies = {
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      enabled = vim.fn.executable("make") == 1,
-      config = function()
-        Util.on_load("telescope.nvim", function()
-          require("telescope").load_extension("fzf")
-        end)
-      end,
-    },
-  },
   keys = {
     {
       "<leader>,",
@@ -26,12 +12,15 @@ return {
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
     { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
     -- find
+    { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
     { "<C-b>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
     { "<leader>rc", Util.telescope.config_files(), desc = "Find Config File" },
     { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
+    { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     { "<C-f>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-    { "<C-h>", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+    { "<C-h>", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     -- git
     { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
