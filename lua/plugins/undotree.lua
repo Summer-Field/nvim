@@ -1,15 +1,18 @@
 return {
   "mbbill/undotree",
-  keys = { "U" },
+  cmd = "Undotree",
+  keys = {
+    { "U", "<cmd>UndotreeToggle<cr>", desc = "Undotree", noremap = true },
+  },
   config = function()
+    vim.g.undotree_DiffAutoOpen = 1
+    vim.g.undotree_SetFocusWhenToggle = 1
+    vim.g.undotree_ShortIndicators = 1
+    vim.g.undotree_WindowLayout = 2
+    vim.g.undotree_DiffpanelHeight = 8
+    vim.g.undotree_SplitWidth = 24
+
     vim.cmd([[
-    noremap U <cmd>UndotreeToggle<cr>
-    let g:undotree_DiffAutoOpen = 1
-    let g:undotree_SetFocusWhenToggle = 1
-    let g:undotree_ShortIndicators = 1
-    let g:undotree_WindowLayout = 2
-    let g:undotree_DiffpanelHeight = 8
-    let g:undotree_SplitWidth = 24
     function g:Undotree_CustomMap()
       nmap <buffer> k <plug>UndotreeNextState
       nmap <buffer> j <plug>UndotreePreviousState
