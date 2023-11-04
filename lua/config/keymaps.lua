@@ -2,11 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 -- This file is automatically loaded by lazyvim.config.init
-local Util = require("lazyvim.util")
-
--- DO NOT USE THIS IN YOU OWN CONFIG!!
--- use `vim.keymap.set` instead
-local map = Util.safe_keymap_set
 
 -- Mode
 local mode_nv = { "n", "v" }
@@ -30,8 +25,8 @@ vim.keymap.set(mode_nv, "<S-j>", "5j", { desc = "Fast move down", silent = true 
 vim.keymap.set(mode_nv, "<S-k>", "5k", { desc = "Fast move up", silent = true })
 vim.keymap.set(mode_nv, "<S-w>", "5w", { desc = "Fast move forward", noremap = true, silent = true })
 vim.keymap.set(mode_nv, "<S-b>", "5b", { desc = "Fast move back", noremap = true, silent = true })
-vim.keymap.set(mode_nv, "<C-j>", "5<C-y>", { desc = "Fast move down", silent = true })
-vim.keymap.set(mode_nv, "<C-k>", "5<C-e>", { desc = "Fast move down", silent = true })
+vim.keymap.set(mode_nv, "<C-j>", "5<C-e>", { desc = "Fast move down", silent = true })
+vim.keymap.set(mode_nv, "<C-k>", "5<C-y>", { desc = "Fast move down", silent = true })
 vim.keymap.set(mode_nv, "-", "N", { desc = "Tail of line", silent = true })
 vim.keymap.set(mode_nv, "=", "n", { desc = "Tail of line", silent = true })
 vim.keymap.set(mode_nv, "_", "5N", { desc = "Fast Tail of line", silent = true })
@@ -95,6 +90,3 @@ vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" 
 vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-
--- File Explorer
-vim.keymap.set(mode_n, "tt", "<cmd>NvimTreeToggle<cr>", { desc = "Open File Tree" })
