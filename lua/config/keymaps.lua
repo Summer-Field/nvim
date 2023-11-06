@@ -5,6 +5,7 @@
 
 -- Mode
 local mode_nv = { "n", "v" }
+local mode_ixns = { "n", "v", "x", "s" }
 local mode_n = { "n" }
 local mode_v = { "v" }
 
@@ -19,6 +20,7 @@ local split_right = "<cmd>set splitright<cr>:vsplit<cr>"
 -- Savw & Quit
 vim.keymap.set(mode_n, "Q", "<cmd>q<cr>", { desc = "Quit", noremap = true, silent = true })
 vim.keymap.set(mode_n, "S", "<cmd>w<cr>", { desc = "Save", noremap = true, silent = true })
+vim.keymap.set(mode_ixns, "<C-s>", "<nop>")
 
 -- Fast Move
 vim.keymap.set(mode_nv, "<S-j>", "5j", { desc = "Fast move down", silent = true })
