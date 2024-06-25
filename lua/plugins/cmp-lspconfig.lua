@@ -12,11 +12,4 @@ return {
     keys[#keys + 1] = { "<leader>rn", vim.lsp.buf.rename }
     keys[#keys + 1] = { "gt", vim.lsp.buf.type_definition }
   end,
-  opts = {
-    setup = {
-      clangd = function(_, opts)
-        opts.capabilities.offsetEncoding = { "utf-16" }
-      end,
-    },
-  },
 }

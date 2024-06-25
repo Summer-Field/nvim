@@ -19,6 +19,6 @@ return {
       nmap <buffer> K 5<plug>UndotreeNextState
       nmap <buffer> J 5<plug>UndotreePreviousState
     endfunc
-      ]])
+    ]])
   end,
 }

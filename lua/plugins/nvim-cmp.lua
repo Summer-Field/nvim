@@ -3,6 +3,8 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- TODO: disable default <tab> and <s-tab> in LuaSnip
+-- https://www.lazyvim.org/configuration/recipes#:~:text=Disable%20default%20%3Ctab%3E%20and%20%3Cs%2Dtab%3E%20behavior%20in%20LuaSnip
 return {
   "hrsh7th/nvim-cmp",
   dependencies = { "hrsh7th/cmp-emoji" },
